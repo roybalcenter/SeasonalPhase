@@ -7,44 +7,30 @@
 import pandas as pd
 import numpy as np
 
-def transform_seasonal_phase(df, date_col):
+def calculate_seasonal_phase(df, date_col):
     """
-    Transforms a date column into a continuous seasonal variable.
-    +1 = Summer Solstice (~June 21)
-    -1 = Winter Solstice (~Dec 21)
-    0  = Equinoxes
+    Transforms a date into a continuous seasonal variable (+1 to -1).
+    
+    Parameters:
+    df (pd.DataFrame): The input dataframe.
+    date_col (str): The name of the column containing datetime objects.
     """
     
-    # 1. Extract the Day of the Year (1 to 366)
-    # If your dataset spans multiple years, this ignores the year 
-    # and treats every "June 21" the same.
+    # 1. Extract the 'Day of the Year' (Julian Day)
+    # This results in an integer from 1 to 366.
+    # We use this to strip away the 'Year' so that June 21st is 
+    # treated the same regardless of whether it's 2020 or 2024.
     day_of_year = df[date_col].dt.dayofyear
     
-    # 2. Define the Anchor (Summer Solstice)
-    # The average day of the year for the Summer Solstice is 172.
-    # Adjust this value if you are working with specific leap year shifts.
+    # 2. Define the Seasonal Anchor
+    # 172 is the average day of the year for the Summer Solstice (June 21).
+    # IF ANALYZING SOUTHERN HEMISPHERE: Change this to 355 (Dec 21).
     solstice_day = 172
     
-    # 3. Calculate the Phase
-    # We use 365.25 to account for the average length of a year.
-    # The formula: cos(2 * pi * (day - anchor) / year_length)
-    # This centers the peak (+1) at day 172.
+    # 3. Apply the Cosine Transformation
+    # - 2 * pi converts the linear day into a circular (angular) value.
+    # - (day_of_year - solstice_day) shifts the wave so the peak (+1) is at the solstice.
+    # - 365.25 is used as the denominator to account for leap years over long datasets.
     df['seasonal_phase'] = np.cos(2 * np.pi * (day_of_year - solstice_day) / 365.25)
     
     return df
-
-# --- Example Usage ---
-data = {
-    'date': pd.to_datetime([
-        '2024-06-21', # Summer Solstice (+1)
-        '2024-12-21', # Winter Solstice (-1)
-        '2024-03-20', # Spring Equinox (0)
-        '2024-09-22', # Autumn Equinox (0)
-        '2024-08-05'  # Mid-summer
-    ])
-}
-
-df = pd.DataFrame(data)
-df = transform_seasonal_phase(df, 'date')
-
-print(df)
