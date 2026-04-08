@@ -1,4 +1,4 @@
-# Sample R code for transforming a date into an astronomical seasonal phase variable
+# Sample R script for transforming a date into an astronomical seasonal phase variable
 # - Code produced by Gemini on April 7, 2026 
 # - Oriented around northern hemisphere
 # - For single year date ranges that are not in a leap year, change the number of days to 365
