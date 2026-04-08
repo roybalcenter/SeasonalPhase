@@ -8,18 +8,22 @@
 
 
 
-# Load lubridate for easier date handling
-# install.packages("lubridate")
+# Required library for date handling
 library(lubridate)
 
 calculate_seasonal_phase <- function(dates) {
-  # day_of_year extracted via yday
+  # 1. Extract Day of the Year (1-366)
+  # yday() handles the conversion from Date/POSIXct objects automatically.
   day_of_year <- yday(dates)
   
-  # solstice_day anchor
+  # 2. Define the Anchor (Summer Solstice)
+  # June 21 is day 172. 
+  # ADJUSTMENT: Use 355 if the study area is in the Southern Hemisphere.
   solstice_day <- 172
   
-  # seasonal_phase calculation
+  # 3. Calculate the Phase
+  # R's cos() function is vectorized and will process the entire column at once.
+  # 365.25 is the denominator to smooth for leap years.
   seasonal_phase <- cos(2 * pi * (day_of_year - solstice_day) / 365.25)
   
   return(seasonal_phase)
