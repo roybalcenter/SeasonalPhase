@@ -48,7 +48,11 @@ The default scripts are set for the **Northern Hemisphere** (Summer Solstice = D
 This code anchors the function on the summer solstice and uses floating point estimation to calculate the seasonal phase. Values on the equinox or winter solstice are mathematical approximations that preserve even spacing but may not be precisely 0 or -1.
 
 ## Permanent Archive
-A persistent version of this repository and associated datasets can be found on the Open Science Framework (OSF) at: [INSERT OSF LINK HERE]
+
+An archived, citable version of this repository is available on Zenodo:
+- Concept DOI (all versions): https://doi.org/10.5281/zenodo.XXXXXXX
+- Latest version record: https://zenodo.org/records/XXXXXXX
+- To cite a specific release, use the version-specific DOI listed on the Zenodo record for that release.
 
 ## License
 
