@@ -50,8 +50,8 @@ This code anchors the function on the summer solstice and uses floating point es
 ## Permanent Archive
 
 An archived, citable version of this repository is available on Zenodo:
-- Concept DOI (all versions): [https://doi.org/10.5281/zenodo.19893163]
 - Latest version record: [https://doi.org/10.5281/zenodo.19893163]
+- Concept DOI (all versions): will be added once a new version is added
 - To cite a specific release, use the version-specific DOI listed on the Zenodo record for that release.
 
 ## License
